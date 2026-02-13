@@ -1,0 +1,58 @@
+name: Infra DevSecOps
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    env:
+      PROJECT_ID: terraform-lab-487221
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Autenticación GCP
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # Instalar Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # Validación de formato
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      # Inicializar
+      - name: Terraform Init
+        run: terraform init
+      # Validar sintaxis
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Escaneo de seguridad IaC
+      - name: Scan IaC with Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform
+          soft_fail: false
+
+      # Generar Plan
+      - name: Terraform Plan
+        run: terraform plan -no-color
