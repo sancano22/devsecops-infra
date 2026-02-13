@@ -1,0 +1,43 @@
+# =========================
+# Terraform Local Files
+# =========================
+
+# Directorio de estado local
+.terraform/
+
+# Archivos de estado
+*.tfstate
+*.tfstate.*
+
+# Lock file (opcional)
+# Si trabajas en equipo se recomienda versionarlo
+# Si no, puedes ignorarlo
+# .terraform.lock.hcl
+
+# Archivos de override
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Plan files
+*.tfplan
+*.out
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Variables sensibles locales
+*.auto.tfvars
+*.auto.tfvars.json
+terraform.tfvars
+terraform.tfvars.json
+
+# Archivos de backend local
+backend.tfvars
+
+# IDE / Sistema
+.vscode/
+.idea/
+.DS_Store
