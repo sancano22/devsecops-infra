@@ -60,6 +60,7 @@ resource "google_storage_bucket_iam_member" "frontend_public_access" {
 
 ## BACKEND
 #checkov:skip=CKV_GCP_30: Using default service account temporarily for lab environment
+#checkov:skip=CKV_GCP_31: Full cloud-platform scope allowed temporarily for lab
 resource "google_compute_instance" "backend_vm" {
   name         = "backend-vm"
   machine_type = "e2-medium"
