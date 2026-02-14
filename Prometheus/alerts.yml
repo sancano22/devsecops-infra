@@ -1,0 +1,25 @@
+groups:
+  - name: infrastructure-alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: (100 - avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100) > 80
+        for: 2m
+        labels:
+          severity: warning
+
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) 
+              / node_memory_MemTotal_bytes * 100 > 90
+        for: 2m
+        labels:
+          severity: critical
+
+  - name: application-alerts
+    rules:
+      - alert: GatewayDown
+        expr: up{job="api-gateway"} == 0
+        for: 1m
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[1m]) > 5
+        for: 1m

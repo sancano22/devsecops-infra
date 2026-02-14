@@ -8,7 +8,6 @@ resource "google_storage_bucket" "frontend" {
     main_page_suffix = "index.html"
     not_found_page   = "index.html"
   }
-
   force_destroy = true
 }
 
@@ -19,7 +18,6 @@ resource "google_storage_bucket_iam_member" "frontend_public_access" {
 }
 
 ## BACKEND
-
 resource "google_compute_instance" "backend_vm" {
   name         = "backend-vm"
   machine_type = "e2-medium"
@@ -76,7 +74,6 @@ docker run -d --restart unless-stopped \
   us-central1-docker.pkg.dev/${var.project_id}/microservices-repo/api-gateway:${var.image_tag}
 
 EOF      
-
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
