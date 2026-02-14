@@ -17,9 +17,9 @@ resource "google_storage_bucket" "logs_bucket" {
     }
   }
 }
-#checkov:skip=CKV_GCP_62: Access logging disabled temporarily for lab environment
-#checkov:skip=CKV_GCP_28: Public access required for static website hosting
-#checkov:skip=CKV_GCP_114: Static website bucket intentionally public
+# checkov:skip=CKV_GCP_62: Access logging disabled temporarily for lab environment
+# checkov:skip=CKV_GCP_28: Public access required for static website hosting
+# checkov:skip=CKV_GCP_114: Static website bucket intentionally public
 resource "google_storage_bucket" "frontend" {
   name     = "${var.project_id}-frontend"
   location = var.region
@@ -52,7 +52,7 @@ resource "google_storage_bucket" "frontend" {
   force_destroy = true
 }
 
-#checkov:skip=CKV_GCP_28: Public access required for static website hosting in lab environment
+# checkov:skip=CKV_GCP_28: Public access required for static website hosting in lab environment
 resource "google_storage_bucket_iam_member" "frontend_public_access" {
   bucket = google_storage_bucket.frontend.name
   role   = "roles/storage.objectViewer"
@@ -60,11 +60,11 @@ resource "google_storage_bucket_iam_member" "frontend_public_access" {
 }
 
 ## BACKEND
-#checkov:skip=CKV_GCP_38: Shielded VM config disabled temporarily for lab environment
-#checkov:skip=CKV_GCP_32: Project-wide SSH keys allowed temporarily for lab environment
-#checkov:skip=CKV_GCP_114: Static website bucket intentionally public
-#checkov:skip=CKV_GCP_30: Using default service account temporarily for lab environment
-#checkov:skip=CKV_GCP_31: Full cloud-platform scope allowed temporarily for lab
+# checkov:skip=CKV_GCP_38: Shielded VM config disabled temporarily for lab environment
+# checkov:skip=CKV_GCP_32: Project-wide SSH keys allowed temporarily for lab environment
+# checkov:skip=CKV_GCP_114: Static website bucket intentionally public
+# checkov:skip=CKV_GCP_30: Using default service account temporarily for lab environment
+# checkov:skip=CKV_GCP_31: Full cloud-platform scope allowed temporarily for lab
 resource "google_compute_instance" "backend_vm" {
   name         = "backend-vm"
   machine_type = "e2-medium"
