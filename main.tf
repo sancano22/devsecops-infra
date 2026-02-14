@@ -1,9 +1,8 @@
 resource "google_storage_bucket" "frontend" {
   name     = "${var.project_id}-frontend"
   location = var.region
-
+  # checkov:skip=CKV_GCP_114: Static website bucket intentionally public
   uniform_bucket_level_access = true
-
   website {
     main_page_suffix = "index.html"
     not_found_page   = "index.html"
