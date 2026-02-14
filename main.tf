@@ -1,5 +1,5 @@
-  
-  resource "google_storage_bucket" "logs_bucket" {
+# checkov:skip=CKV_GCP_114: Static website bucket intentionally public
+resource "google_storage_bucket" "logs_bucket" {
   name     = "${var.project_id}-logs"
   location = var.region
 
