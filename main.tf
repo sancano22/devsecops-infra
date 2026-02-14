@@ -1,8 +1,28 @@
+# checkov:skip=CKV_GCP_114: Static website bucket intentionally public
+
 resource "google_storage_bucket" "frontend" {
   name     = "${var.project_id}-frontend"
   location = var.region
-  # checkov:skip=CKV_GCP_114: Static website bucket intentionally public
   uniform_bucket_level_access = true
+  #Check: CKV_GCP_78
+  versioning {
+    enabled = true
+  }
+
+  lifecycle_rule {
+    condition {
+      age = 30
+    }
+    action {
+      type = "Delete"
+    }
+  }
+  #CKV_GCP_62: Bucket should log access
+  logging {
+    log_bucket        = google_storage_bucket.logs_bucket.name
+    log_object_prefix = "frontend-access-logs"
+  }
+  
   website {
     main_page_suffix = "index.html"
     not_found_page   = "index.html"
