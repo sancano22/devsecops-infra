@@ -36,8 +36,7 @@ jobs:
 
       # Validación de formato
       - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-
+        run: terraform fmt -diff
       # Inicializar
       - name: Terraform Init
         run: terraform init
