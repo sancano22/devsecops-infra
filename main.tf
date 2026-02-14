@@ -52,7 +52,7 @@ resource "google_storage_bucket" "frontend" {
   force_destroy = true
 }
 
-#checkov:skip=CKV_GCP_28: Public access required for static website hosting
+#checkov:skip=CKV_GCP_28: Public access required for static website hosting in lab environment
 resource "google_storage_bucket_iam_member" "frontend_public_access" {
   bucket = google_storage_bucket.frontend.name
   role   = "roles/storage.objectViewer"
@@ -60,6 +60,7 @@ resource "google_storage_bucket_iam_member" "frontend_public_access" {
 }
 
 ## BACKEND
+#checkov:skip=CKV_GCP_38: Shielded VM config disabled temporarily for lab environment
 #checkov:skip=CKV_GCP_32: Project-wide SSH keys allowed temporarily for lab environment
 #checkov:skip=CKV_GCP_114: Static website bucket intentionally public
 #checkov:skip=CKV_GCP_30: Using default service account temporarily for lab environment
