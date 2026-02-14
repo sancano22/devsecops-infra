@@ -17,8 +17,6 @@ resource "google_storage_bucket" "logs_bucket" {
     }
   }
 }
-# checkov:skip=CKV_GCP_62: Access logging disabled temporarily for lab environment
-# checkov:skip=CKV_GCP_28: Public access required for static website hosting
 # checkov:skip=CKV_GCP_114: Static website bucket intentionally public
 resource "google_storage_bucket" "frontend" {
   name     = "${var.project_id}-frontend"
@@ -60,6 +58,8 @@ resource "google_storage_bucket_iam_member" "frontend_public_access" {
 }
 
 ## BACKEND
+# checkov:skip=CKV_GCP_62: Access logging disabled temporarily for lab environment
+# checkov:skip=CKV_GCP_28: Public access required for static website hosting
 # checkov:skip=CKV_GCP_38: Shielded VM config disabled temporarily for lab environment
 # checkov:skip=CKV_GCP_32: Project-wide SSH keys allowed temporarily for lab environment
 # checkov:skip=CKV_GCP_114: Static website bucket intentionally public
