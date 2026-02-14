@@ -101,4 +101,3 @@ resource "google_compute_firewall" "allow_backend" {
 
   source_ranges = ["0.0.0.0/0"]
 }
-
