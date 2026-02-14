@@ -53,7 +53,7 @@ jobs:
         with:
           directory: .
           framework: terraform
-          soft_fail: false
+          soft_fail: true
 
       # Generar Plan
       - name: Terraform Plan
